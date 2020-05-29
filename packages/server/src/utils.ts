@@ -23,3 +23,22 @@ export const env = {
     return process.env[name] || defaultValue;
   }
 };
+
+export const http = {
+  ok: <T>(data: T, message?: string) => ({
+    data,
+    status: {
+      ok: true,
+      ...(message ? { message } : {})
+    } as const
+  }),
+
+  err: <T>(message: string, code: string, data?: T) => ({
+    ...(data ? { data } : {}),
+    status: {
+      ok: false,
+      code,
+      message
+    } as const
+  })
+};
