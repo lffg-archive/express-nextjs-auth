@@ -7,3 +7,19 @@ export function invalidCredentials(res: Response) {
     }
   });
 }
+
+export const env = {
+  get: (name: string): string => {
+    const env = process.env[name];
+
+    if (!env) {
+      throw new Error(`Missing environment variable "${name}".`);
+    }
+
+    return env;
+  },
+
+  getDefault: (name: string, defaultValue: string = ''): string => {
+    return process.env[name] || defaultValue;
+  }
+};
