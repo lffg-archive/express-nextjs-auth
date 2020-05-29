@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently --kill-others --names ts,node -c 'bgBlue,bgGreen' 'yarn dev:ts' 'yarn dev:node'",
+    "dev": "concurrently -k -i --names ts,node -c 'bgBlue,bgGreen' 'yarn dev:ts' 'yarn dev:node'",
     "dev:ts": "tsc --watch --preserveWatchOutput",
     "dev:node": "nodemon build/server.js"
   },
