@@ -1,15 +1,21 @@
 import { Router } from 'express';
 import { usersDb } from '../database/users';
-import { invalidCredentials } from '../utils';
+import { auth } from '../middlewares/auth';
+import { invalidCredentials, http } from '../utils';
 
 export const router = Router();
 
-router.post('/login', (req, res) => {
+type LoginBody = Partial<{
+  username: string;
+  password: string;
+}>;
+
+router.post<{}, {}, LoginBody>('/login', (req, res) => {
   const { username, password } = req.body;
 
   const user = usersDb.find(
     (user) =>
-      user.username.toLowerCase() === username.toLowerCase() &&
+      user.username.toLowerCase() === username?.toLowerCase() &&
       user.password === password
   );
 
@@ -17,22 +23,29 @@ router.post('/login', (req, res) => {
     return invalidCredentials(res);
   }
 
-  // TODO: Create session.
+  req.session!.userData = user;
 
-  res.json({
-    data: {
-      message: `You are now logged in. Welcome, ${user.username}.`,
-      userId: user.id
-    }
-  });
+  res.json(
+    http.ok(
+      { userId: user.id },
+      `You are now logged in. Welcome, ${user.username}.`
+    )
+  );
 });
 
-router.post('/logout', (req, res) => {
-  // TODO: Destroy session.
-
-  res.json({
-    data: {
-      message: `You are now logged out.`
+router.post('/logout', auth, (req, res) => {
+  req.session!.destroy((err) => {
+    if (err) {
+      return res
+        .status(500)
+        .json(
+          http.err(
+            'Something went wrong with your attempt to log out.',
+            'ERR_FAILED_LOGOUT'
+          )
+        );
     }
+
+    res.json(http.ok(null, 'You are now logged out.'));
   });
 });
