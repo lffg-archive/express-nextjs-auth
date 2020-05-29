@@ -1,0 +1,38 @@
+{
+  "name": "@lffg/express-nextjs-auth",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "format:raw": "prettier --write --ignore-path .gitignore",
+    "format": "yarn format:raw '**/*.{json,vue,css,scss,less,graphql,gql,md,mdx,yml,yaml}' && yarn lint:fix",
+    "lint": "yarn lint:raw .",
+    "lint:fix": "yarn lint:raw --fix .",
+    "lint:raw": "eslint --ext .js,.jsx,.ts,.tsx --max-warnings=0 --ignore-path .gitignore --ignore-pattern '!.*.*'"
+  },
+  "devDependencies": {
+    "eslint": "6.x",
+    "eslint-config-lffg": "^19.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{json,css,scss,md,mdx,yml,yaml}": [
+      "yarn format:raw"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "yarn lint:raw --fix"
+    ]
+  },
+  "prettier": "eslint-config-lffg/prettier",
+  "eslintConfig": {
+    "extends": "lffg"
+  }
+}
