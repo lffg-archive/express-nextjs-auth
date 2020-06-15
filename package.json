@@ -36,6 +36,9 @@
   },
   "prettier": "eslint-config-lffg/prettier",
   "eslintConfig": {
-    "extends": "lffg"
+    "extends": "lffg",
+    "rules": {
+      "import/no-default-export": "off"
+    }
   }
 }
