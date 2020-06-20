@@ -10,7 +10,7 @@ type LoginBody = Partial<{
   password: string;
 }>;
 
-router.post<{}, {}, LoginBody>('/login', (req, res) => {
+router.post<[], unknown, LoginBody>('/login', (req, res) => {
   const { username, password } = req.body;
 
   const user = usersDb.find(
