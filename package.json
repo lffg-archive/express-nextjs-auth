@@ -11,11 +11,11 @@
     "format": "yarn format:raw '**/*.{json,vue,css,scss,less,graphql,gql,md,mdx,yml,yaml}' && yarn lint:fix",
     "lint": "yarn lint:raw .",
     "lint:fix": "yarn lint:raw --fix .",
-    "lint:raw": "eslint --ext .js,.jsx,.ts,.tsx --max-warnings=0 --ignore-path .gitignore --ignore-pattern '!.*.*'"
+    "lint:raw": "eslint --max-warnings=0 --ignore-path .gitignore --ignore-pattern '!.*.*'"
   },
   "devDependencies": {
-    "eslint": "6.x",
-    "eslint-config-lffg": "^19.0.0",
+    "eslint": "^7.3.0",
+    "eslint-config-lffg": "^20.0.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.6",
     "prettier": "^2.0.5",
