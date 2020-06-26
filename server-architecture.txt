@@ -1,0 +1,61 @@
+```text
+DOMAIN LAYER
+============
+
+/entities:
+  /user:
+    - user.ts (entity)
+    - user.spec.ts (entity tests)
+    - index.ts (binder file)
+  /request:
+    - request.ts
+    - request.spec.ts
+    - index.ts
+
+/controllers:
+  /user-session:
+    /login:
+      - login.ts (use-case)
+      - login.spec.ts (use-case tests)
+      - index.ts (binder file)
+    /register:
+      - register.ts
+      - register.spec.ts
+      - index.ts
+    /password-reset:
+      - password-reset.ts
+      - password-reset.spec.ts
+      - index.ts
+  /requests:
+    /list:
+      - list.ts
+      - list.spec.ts
+      - index.ts
+    /create:
+      - create.ts
+      - create.spec.ts
+      - index.ts
+    /(...) Other crud use-cases...
+
+INFRA LAYER
+===========
+
+/data:
+  /user:
+    /find-by-email:
+      /impl:
+        - find-by-email-knex-implementation.ts
+        - find-by-email-knex-implementation.test.ts
+      - find-by-email.ts (interface)
+      - index.ts (will export the interface AND all the implementations)
+    /create:
+      /impl:
+        - create-knex-implementation.ts
+        - create-knex-implementation.test.ts
+      - create.ts
+      - index.ts
+
+/routes:
+  /user-session:
+
+```
